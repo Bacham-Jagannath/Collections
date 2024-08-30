@@ -1,0 +1,75 @@
+Create User
+
+curl --location 'localhost:8081/auth/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "panNumber":"BRPPJ8165A",
+    "firstname":"Jagan",
+    "lastname": "nath",
+    "username":"Jagannath",
+    "password": "jagannath123",
+    "role": "USER",
+    "mobileNum": 8886060072,
+    "email":"jagannath88860@gmail.com",
+    "account": {
+        "accountType": "SAVINGS",
+        "accountSource": "HDFC",
+        "currentBalance": "89000.00",
+        "accountNo": "33945841026"
+    }
+}'
+
+
+
+Login User
+curl --location 'http://localhost:8081/auth/login' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=F274A0D01AA9BBC77BAD710C498F26DD' \
+--data '{
+    "panNumber": "BRPPJ8165A",
+    "password": "jagannath123"
+}'
+
+Get ALL Customers based on registration status
+curl --location 'localhost:8081/auth/getAllRegisterCustomers/CREATED' \
+--header 'Cookie: JSESSIONID=F274A0D01AA9BBC77BAD710C498F26DD'
+
+Get Customer Based on pan number
+curl --location 'localhost:8081/auth/BRPPJ8165A'
+
+Update Password Req
+curl --location --request PUT 'localhost:8081/auth/updatePasswordReq/BRPPJ8165A' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=F274A0D01AA9BBC77BAD710C498F26DD' \
+--data '{
+    "password":"jagan123"
+}'
+
+
+Register Admin
+curl --location 'http://localhost:8082/auth/create' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=F274A0D01AA9BBC77BAD710C498F26DD' \
+--data-raw '{
+    "firstname":"Narahari",
+    "lastname":"Hari",
+    "username":"Narahari",
+    "password":"jagannath123",
+    "email":"chowdary888606@gmail.com",
+    "mobileNum":"90522273398",
+    "role":"ADMIN"
+}'
+
+Login Admin
+curl --location 'http://localhost:8082/auth/login' \
+--header 'Content-Type: application/json' \
+--data '{
+     "username": "Narahari",
+    "password": "jagannath123"
+}'
+
+Find All Register account Users in admin service
+curl --location 'http://localhost:8082/admin/findAllAccountRegCustomer/CREATED'
+
+Upadate register account using pan card in admin service
+curl --location --request PUT 'http://localhost:8082/admin/updateCustomerAccountReq/BRPPJ8165A'
